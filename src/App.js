@@ -1,45 +1,32 @@
-import { useEffect, useState } from "react";
-import UserList from "./components/admin/UserList";
+import { useContext } from "react";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-import DeleteUser from "./components/admin/DeleteUser";
-import UserDisplay from "./components/user/UserDisplay";
-import UserUpdate from "./components/user/UserUpdate";
-import PasswordUpdate from "./components/user/PasswordUpdate";
-import SearchUser from "./components/admin/SearchUser";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import AdminLayout from "./components/ui/AdminLayout";
+import UserLayout from "./components/ui/UserLayout";
+import Homepage from "./components/ui/Homepage";
+import { PropContext } from "./context/PropContext";
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
-  const [userRole, setUserRole] = useState(localStorage.getItem("role") || "");
+  const { token, userRole, logout } = useContext(PropContext);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem("token", token);
-    }
-    if (userRole) {
-      localStorage.setItem("role", userRole);
-    }
-  }, [token, userRole]);
+  const handleLogout = () => {
+    logout(navigate);
+  };
 
   return (
     <>
-      <Register />
-      <h1>Hello</h1>
-      <Login setToken={setToken} setUserRole={setUserRole} />
-      <h1>Hello</h1>
-
-      {token && (
+      {!token ? (
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/auth/register" element={<Register />} />
+          <Route path="/auth/login" element={<Login />} />
+        </Routes>
+      ) : (
         <>
-          {userRole === "admin" && (
-            <>
-              <UserList token={token} />
-              <DeleteUser token={token} />
-              <SearchUser token={token} />
-            </>
-          )}
-          <UserDisplay token={token} />
-          <UserUpdate token={token} />
-          <PasswordUpdate token={token} />
+          {userRole === "admin" ? <AdminLayout /> : <UserLayout />}
+          <button onClick={handleLogout}>Logout</button>
         </>
       )}
     </>

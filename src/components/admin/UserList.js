@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import adminApi from "../../service/adminApi";
+import { PropContext } from "../../context/PropContext";
 
-const UserList = ({ token }) => {
+const UserList = () => {
+  const { token } = useContext(PropContext);
   const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
 

@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import userApi from "../../service/userApi";
+import { PropContext } from "../../context/PropContext";
 
-const UserDisplay = ({ token }) => {
+const UserDisplay = () => {
+  const { token } = useContext(PropContext);
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
 

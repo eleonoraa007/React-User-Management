@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import adminApi from "../../service/adminApi";
+import { PropContext } from "../../context/PropContext";
 
-const DeleteUser = ({ token }) => {
+const DeleteUser = () => {
+  const { token } = useContext(PropContext);
   const [id, setId] = useState("");
   const [message, setMessage] = useState("");
 

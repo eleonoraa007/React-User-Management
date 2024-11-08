@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import userApi from "../../service/userApi";
+import { PropContext } from "../../context/PropContext";
 
-const UserUpdate = ({ token }) => {
+const UserUpdate = () => {
+  const { token } = useContext(PropContext);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

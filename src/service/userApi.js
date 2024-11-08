@@ -10,7 +10,7 @@ const getProfile = async (token) => {
 };
 
 const updateProfile = async (token, data) => {
-  const response = await axios.put(`${API_URL}/profile`, data, {
+  const response = await axios.put(`${API_URL}/profile/update`, data, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;

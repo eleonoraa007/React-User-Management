@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import adminApi from "../../service/adminApi";
+import { PropContext } from "../../context/PropContext";
 
-const SearchUser = ({ token }) => {
+const SearchUser = () => {
+  const { token } = useContext(PropContext);
   const [query, setQuery] = useState({
     email: "",
     birthDate: "",
@@ -16,7 +18,6 @@ const SearchUser = ({ token }) => {
   const handleSearch = async () => {
     try {
       const data = await adminApi.searchUser(token, query);
-      console.log("API response data:", data);
       setResult(data || null);
       setError("");
     } catch (err) {

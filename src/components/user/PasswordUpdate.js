@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import userApi from "../../service/userApi";
+import { PropContext } from "../../context/PropContext";
 
-const PasswordUpdate = ({ token }) => {
+const PasswordUpdate = () => {
+  const { token } = useContext(PropContext);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
