@@ -1,21 +1,29 @@
 import { useState } from "react";
 import authApi from "../../service/authApi";
 
-function Login({ setToken }) {
+function Login({ setToken, setUserRole }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await authApi.login({ email, password });
+
       const token = response.data.token;
+      const role = response.data.role;
+
       localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
+
       setToken(token);
+      setUserRole(role);
+
       setMessage("Login successful");
     } catch (err) {
-      setMessage(err.message);
+      setMessage(err.response?.data?.message);
     }
   };
 
