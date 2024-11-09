@@ -32,17 +32,18 @@ const UserUpdate = () => {
         <input
           type="text"
           name="firstName"
-          placeholder="First name:"
+          placeholder="First name"
           value={formData.firstName}
           onChange={handleChange}
         />
         <input
           type="text"
           name="lastName"
-          placeholder="Last name:"
+          placeholder="Last name"
           value={formData.lastName}
           onChange={handleChange}
         />
+        <label>Birth date:</label>
         <input
           type="date"
           name="birthDate"

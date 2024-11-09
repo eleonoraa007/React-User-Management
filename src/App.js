@@ -1,13 +1,12 @@
 import { useContext } from "react";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import AdminLayout from "./components/ui/AdminLayout";
-import UserLayout from "./components/ui/UserLayout";
-import Homepage from "./components/ui/Homepage";
+import { useNavigate } from "react-router-dom";
 import { PropContext } from "./context/PropContext";
+import Navbar from "./components/ui/NavBar";
+import UserRoutes from "./routes/UserRoutes";
+import AdminRoutes from "./routes/AdminRoutes";
+import AuthRoutes from "./routes/AuthRoutes";
 
-function App() {
+const App = () => {
   const { token, userRole, logout } = useContext(PropContext);
   const navigate = useNavigate();
 
@@ -18,18 +17,18 @@ function App() {
   return (
     <>
       {!token ? (
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/auth/register" element={<Register />} />
-          <Route path="/auth/login" element={<Login />} />
-        </Routes>
+        <AuthRoutes />
       ) : (
         <>
-          {userRole === "admin" ? <AdminLayout /> : <UserLayout />}
-          <button onClick={handleLogout}>Logout</button>
+          <Navbar />
+          <UserRoutes />
+          {userRole === "admin" && <AdminRoutes />}
+          <button className="logout-btn btn" onClick={handleLogout}>
+            Logout
+          </button>
         </>
       )}
     </>
   );
-}
+};
 export default App;

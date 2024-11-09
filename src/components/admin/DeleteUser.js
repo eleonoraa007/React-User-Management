@@ -7,7 +7,8 @@ const DeleteUser = () => {
   const [id, setId] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleDelete = async () => {
+  const handleDelete = async (e) => {
+    e.preventDefault();
     try {
       await adminApi.deleteUser(token, id);
       setMessage("User deleted");
@@ -19,13 +20,15 @@ const DeleteUser = () => {
   return (
     <div>
       <h2>Delete User</h2>
-      <input
-        type="text"
-        placeholder="User id:"
-        value={id}
-        onChange={(e) => setId(e.target.value)}
-      />
-      <button onClick={handleDelete}>Delete user</button>
+      <form onSubmit={handleDelete}>
+        <input
+          type="text"
+          placeholder="User id:"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+        />
+        <button type="submit">Delete user</button>
+      </form>
       {message && <p>{message}</p>}
     </div>
   );

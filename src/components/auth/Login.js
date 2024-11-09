@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import authApi from "../../service/authApi";
 import { PropContext } from "../../context/PropContext";
 
-function Login() {
+const Login = () => {
   const { setToken, setUserRole } = useContext(PropContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,6 +48,6 @@ function Login() {
       {message && <p>{message}</p>}
     </div>
   );
-}
+};
 
 export default Login;

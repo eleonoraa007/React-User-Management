@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import adminApi from "../../service/adminApi";
 import { PropContext } from "../../context/PropContext";
+import styles from "./UserList.module.css";
 
 const UserList = () => {
   const { token } = useContext(PropContext);
@@ -19,41 +20,25 @@ const UserList = () => {
     };
     fetchUsers();
   }, [token]);
-
   return (
-    <div>
+    <div className={styles.listContainer}>
       <h2>User list:</h2>
       {error && <p>{error}</p>}
-      <ul>
+      <div className={styles.cardList}>
         {users.map((user) => (
-          <li key={user.id}>
-            <p>
-              <strong>First Name:</strong>
-              {user.firstName}
-            </p>
-            <p>
-              <strong>Last Name:</strong>
-              {user.lastName}
-            </p>
-            <p>
-              <strong>Email:</strong>
-              {user.email}
-            </p>
-            <p>
-              <strong>Birth date:</strong>
-              {user.birthDate}
-            </p>
-            <p>
-              {user.profileImage && (
-                <>
-                  <strong>Profile image:</strong>
-                  <img src={user.profileImage} alt={`${user.firstName}`} />
-                </>
-              )}
-            </p>
-          </li>
+          <div className={styles.card} key={user.id}>
+            <img
+              src={user.profileImage || "https://via.placeholder.com/150"}
+              alt={`${user.firstName}`}
+              className={styles.image}
+            />
+            <p>First Name: {user.firstName}</p>
+            <p>Last Name: {user.lastName}</p>
+            <p>Email: {user.email}</p>
+            <p>Birth date: {new Date(user.birthDate).toLocaleDateString()}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

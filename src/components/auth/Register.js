@@ -1,7 +1,7 @@
 import { useState } from "react";
 import authApi from "../../service/authApi";
 
-function Register() {
+const Register = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -66,5 +66,5 @@ function Register() {
       {message && <p>{message}</p>}
     </div>
   );
-}
+};
 export default Register;
