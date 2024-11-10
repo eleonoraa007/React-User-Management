@@ -1,12 +1,14 @@
 import { useContext, useState } from "react";
 import authApi from "../../service/authApi";
 import { PropContext } from "../../context/PropContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { setToken, setUserRole } = useContext(PropContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +24,8 @@ const Login = () => {
 
       setToken(token);
       setUserRole(role);
+
+      navigate("/users/profile");
 
       setMessage("Login successful");
     } catch (err) {

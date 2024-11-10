@@ -8,13 +8,6 @@ const getAllUsers = async (token) => {
   });
   return response.data;
 };
-// const getAllUsers = async () => {
-//  const token = localStorage.getItem("token");
-//   const response = await axios.get(`${API_URL}/`, {
-//     headers: { Authorization: `Bearer ${token}` },
-//   });
-//   return response.data;
-// };
 
 const searchUser = async (token, query) => {
   console.log("Query parameters:", query);

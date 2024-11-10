@@ -1,5 +1,6 @@
 import { useState } from "react";
 import authApi from "../../service/authApi";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,8 @@ const Register = () => {
     role: "user",
   });
   const [message, setMessage] = useState("");
+  const [isRegistered, setIsRegistered] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,9 +24,14 @@ const Register = () => {
     try {
       const data = await authApi.register(formData);
       setMessage(data.message);
+      setIsRegistered(true);
     } catch (err) {
       setMessage(err.message);
     }
+  };
+
+  const handleRedirect = () => {
+    navigate("/auth/login");
   };
 
   return (
@@ -62,8 +70,14 @@ const Register = () => {
         />
         <button type="submit">Register</button>
       </form>
-
       {message && <p>{message}</p>}
+      {isRegistered && (
+        <>
+          <button type="button" onClick={handleRedirect}>
+            Login
+          </button>
+        </>
+      )}
     </div>
   );
 };

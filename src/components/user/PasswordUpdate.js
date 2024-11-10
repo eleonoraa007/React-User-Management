@@ -26,14 +26,12 @@ const PasswordUpdate = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="password"
-          // name="pass1"
           placeholder="Current password"
           value={currentPassword}
           onChange={(e) => setCurrentPassword(e.target.value)}
         />
         <input
           type="password"
-          // name="pass2"
           placeholder="New password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
